@@ -11,7 +11,7 @@ async function Images() {
 
   return (
     <main className="">
-      <div className="flex flex-wrap justify-center gap-5">
+      <div className="flex flex-wrap justify-center gap-4 p-4">
         {Images.map((image) => (
           <div key={image.id} className="flex flex-col items-center w-48 h-40 mb-14">
             <div className=" w-full h-full ">
@@ -27,7 +27,7 @@ async function Images() {
               </Link>
               <div className="mt-2 text-center">
                 {image.name.length > 18
-                  ? `${image.name.slice(0, 18)}`
+                  ? `${image.name.slice(0, 18)}~`
                   : image.name}
               </div>
             </div>
