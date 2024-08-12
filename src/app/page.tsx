@@ -9,11 +9,19 @@ async function Images() {
     orderBy: (model, { desc }) => desc(model.id),
   });
   return (
-    <div className="flex flex-wrap gap-4">
-      {[...images, ...images, ...images].map((image, index) => (
-        <div key={image.id + "-" + index} className="felx w-48 flex-col">
-          <img src={image.url} />
-          <div>{image.name}</div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {images.map((image) => (
+        <div key={image.id} className="flex flex-col">
+          <img
+            src={image.url}
+            alt={image.name}
+            className="w-auto h-full object-contain"
+          />
+          <div className="text-center mt-2"> {/* Center text and add margin */}
+            {image.name.length > 24
+              ? `${image.name.slice(0, 24)}~${image.name.slice(-4)}`
+              : image.name}
+          </div>
         </div>
       ))}
     </div>
