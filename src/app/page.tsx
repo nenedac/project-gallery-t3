@@ -1,13 +1,12 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs";
-import Link from "next/link";
-import { db } from "~/server/db";
+import { getMyImages } from "~/server/queries";
 
 export const dynamic = "force-dynamic";
 
 async function Images() {
-  const images = await db.query.images.findMany({
-    orderBy: (model, { desc }) => desc(model.id),
-  });
+
+  const images = await getMyImages();
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {images.map((image) => (
@@ -27,8 +26,6 @@ async function Images() {
     </div>
   );
 }
-
-
 
 export default async function HomePage() {
 
