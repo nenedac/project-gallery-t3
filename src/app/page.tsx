@@ -1,5 +1,6 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Image from "next/image";
+import Link from "next/link";
 import { getMyImages } from "~/server/queries";
 
 export const dynamic = "force-dynamic";
@@ -14,14 +15,16 @@ async function Images() {
         {Images.map((image) => (
           <div key={image.id} className="flex flex-col items-center w-48 h-40 mb-14">
             <div className=" w-full h-full ">
-              <Image
-                src={image.url}
-                alt={image.name}
-                width={192} // Set width
-                height={160} // Set height
-                style={{ objectFit: 'cover' }} // 'cover' to maintain aspect ratio and fill container
-                className="w-full h-full" // Ensure the image covers the container
-              />
+              <Link href={`/img/${image.id}`}>
+                <Image
+                  src={image.url}
+                  alt={image.name}
+                  width={192} // Set width
+                  height={160} // Set height
+                  style={{ objectFit: 'cover' }} // 'cover' to maintain aspect ratio and fill container
+                  className="w-full h-full" // Ensure the image covers the container
+                />
+              </Link>
               <div className="mt-2 text-center">
                 {image.name.length > 18
                   ? `${image.name.slice(0, 18)}`
