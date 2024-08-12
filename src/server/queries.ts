@@ -4,11 +4,12 @@ import { auth } from "@clerk/nextjs/server";
 import { images } from "./db/schema";
 import { and, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
+import analyticsServerClient from "./analytics";
 
 export async function getMyImages() {
  const user = auth();
 
- if (!user.userId) throw new Error("unauthorized");
+ if (!user.userId) throw new Error("Unauthorized");
 
  const images = await db.query.images.findMany({
   where: (model, { eq }) => eq(model.userId, user.userId),
@@ -39,5 +40,13 @@ export async function deleteImage(id: number) {
     .delete(images)
     .where(and(eq(images.id, id), eq(images.userId, user.userId)));
 
-  redirect("/");
-}
+    analyticsServerClient.capture({
+      distinctId: user.userId,
+      event: "delete image",
+      properties: {
+        imageId: id,
+      },
+    });
+  
+    redirect("/");
+  }
