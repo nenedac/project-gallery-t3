@@ -45,5 +45,5 @@ Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/ver
 - [x] ShadUIify (specifically toasts)
 - [x] Analytics (posthog)
 - [x] Delete button (w/ Server Actions)
-- [ ] Ratelimiting (upstash)
+- [x] Ratelimiting (upstash)
 
